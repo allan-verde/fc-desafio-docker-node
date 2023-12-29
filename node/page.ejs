@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Full Cycle!</title>
+</head>
+<body>
+  <h1>Full Cycle</h1>
+  <form action="/clubreq" method="post">
+    Nickname: <input type="text" name="nickname" value=""/>
+    <button type='submit'>Enviar</button>
+    <hr>
+  </form>
+  <ul>
+    <% for (var i = 0; i < users.length; i++) { %>
+      <li><%= users[i].name %></li>
+    <% } %>
+  </ul>
+</body>
+</html>

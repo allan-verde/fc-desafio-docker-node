@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    depends_on:
+      - node
+    networks:
+      - my-network
+  
+  node:
+    build: ./node
+    volumes:
+      - ./node:/app
+    working_dir: /app
+    networks:
+      - my-network
+    command: npm run dev
+    depends_on:
+      - database
+
+  database:
+    image: mysql:latest
+    volumes:
+      - ./database:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root1234
+      - MYSQL_DATABASE=nodedb
+    restart: always
+    networks: 
+      - my-network
+
+
+networks:
+  my-network:
+    driver: bridge
